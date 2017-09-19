@@ -10,9 +10,34 @@
   </div>
 
 <script>
+// Speech recognition interfaces are currently prefixed on Chrome,
+// so you'll need to prefix interface names appropriately,
   window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
+// need to actually create an instance of SpeechRecognition
+  const recognition = new SpeechRecognition();
+  recognition.interimResults = true;
 
+  let p = document.createElement('p');
+  const words = document.querySelector('.words');
+  words.appendChild(p);
+
+  recognition.addEventListener('result', e => {
+    console.log(e.results);
+    // the e.results property returns a "list" that's not actually
+    // an array, so we use the Array.from method to turn it into one
+    const transcript = Array.from(e.results)
+      .map(result => result[0])
+      .map(result => result.transcript)
+      .join('');
+
+      console.log(transcript);
+  });
+
+  // we don't call the function in the event listener, cuz that would run on page load
+  recognition.addEventListener('end', recognition.start);
+  // obviously starts the service, and should prompt the user to allow mic access
+  recognition.start();
 </script>
 
 
