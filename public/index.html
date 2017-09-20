@@ -27,10 +27,24 @@
     // the e.results property returns a "list" that's not actually
     // an array, so we use the Array.from method to turn it into one
     const transcript = Array.from(e.results)
-      .map(result => result[0])
+      // from our new list array, grab the first result
+      .map(resultList => resultList[0])
+      // with that result, grab the value of the transcript property
       .map(result => result.transcript)
+      // After mapping over all of those, join the transcripts together
       .join('');
 
+      p.textContent = transcript;
+      if(e.results[0].isFinal) {
+        p = document.createElement('p');
+        words.appendChild(p);
+      }
+      // tons of cool stuff you could do with if statements!
+
+      // if(transcript.includes('bold')) {
+      //   return p.style.fontWeight = "bold";
+      //
+      // }
       console.log(transcript);
   });
 
