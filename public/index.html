@@ -6,6 +6,11 @@
 </head>
 <body>
 
+  <div class="instructions">
+    <h1>This is a Speech Recognition App <span class="shrink">(modified from JS30)</span></h1>
+    <p>Make sure you are in a quite room to ensure the best accuracy!</p>
+    <p>Try saying keywords like <strong>"bold"</strong> or <em>"italics"</em> or <span class="big">"big"</span>.</p>
+  </div>
   <div class="words" contenteditable>
   </div>
 
@@ -23,7 +28,7 @@
   words.appendChild(p);
 
   recognition.addEventListener('result', e => {
-    console.log(e.results);
+
     // the e.results property returns a "list" that's not actually
     // an array, so we use the Array.from method to turn it into one
     const transcript = Array.from(e.results)
@@ -40,12 +45,25 @@
         words.appendChild(p);
       }
       // tons of cool stuff you could do with if statements!
+      // Definitely want to turn this into a portfolio project
 
-      // if(transcript.includes('bold')) {
-      //   return p.style.fontWeight = "bold";
-      //
-      // }
-      console.log(transcript);
+      if(transcript.includes('bold')) {
+        return p.style.fontWeight = "bold";
+
+      }
+
+      if(transcript.includes('italics')) {
+        return p.style.fontStyle = "italic";
+      }
+
+      if(transcript.includes('big')) {
+        return p.style.fontSize = "32px";
+      }
+
+      p.style.fontWeight = "normal";
+      p.style.fontStyle = "normal";
+      p.style.fontSize = "20px";
+
   });
 
   // we don't call the function in the event listener, cuz that would run on page load
@@ -61,10 +79,27 @@
     }
 
     body {
-      background:#ffc600;
+      background:#30b4aa;
       font-family: 'helvetica neue';
       font-weight: 200;
       font-size: 20px;
+    }
+
+    .instructions {
+      text-align: center;
+      color: white;
+    }
+
+    .instructions p {
+      color: black;
+    }
+
+    .shrink {
+      font-size: 20px;
+    }
+
+    .big {
+      font-size: 40px;
     }
 
     .words {
